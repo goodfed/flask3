@@ -18,14 +18,14 @@ days = {
     "sun": "Воскресенье"
 }
 
-with open('goals.json', 'r') as g:
+with open('static/goals.json', 'r') as g:
     goals = json.load(g)
 
 goals_select = []
 for value, title in goals.items():
     goals_select.append((value, title))
 
-with open('teachers.json', 'r') as t:
+with open('static/teachers.json', 'r') as t:
     teachers = json.load(t)
 
 def get_teacher(teachers, id):
@@ -103,9 +103,9 @@ def render_request_form():
     form = RequestForm()
     if request.method == 'POST':
         if form.validate_on_submit():
-            with open('request.json', 'r') as r:
+            with open('static/request.json', 'r') as r:
                 req = json.load(r)
-            with open('request.json', 'w') as r:
+            with open('static/request.json', 'w') as r:
                 req.append({
                     'goal': form.goal.data,
                     'time': form.time.data,
@@ -143,9 +143,9 @@ def render_booking_done():
     clientPhone = form.clientPhone.data
 
     if form.validate_on_submit():
-        with open('booking.json', 'r') as b:
+        with open('static/booking.json', 'r') as b:
             bookings = json.load(b)
-        with open('booking.json', 'w') as b:
+        with open('static/booking.json', 'w') as b:
             bookings.append({
                 'clientTeacher': clientTeacher,
                 'clientWeekday': clientWeekday,
