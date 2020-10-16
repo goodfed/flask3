@@ -81,9 +81,7 @@ def render_goal(goal):
     if goal not in goals:
         abort(404)
 
-    print(goal)
     teachers_by_goal = get_teachers_by_goal(teachers, goal)
-    print(teachers_by_goal)
     output = render_template('goal.html', goals=goals, goal=goal, teachers=teachers_by_goal)
     return output
 
