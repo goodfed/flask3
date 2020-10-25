@@ -12,8 +12,10 @@
               <h1 class="h2">{{ teacher.name }}</h1>
               <p>
                 {% for goal in teacher.goals %}
-                <span class="badge badge-secondary mr-2">{{ goals[goal] }}</span>
+                <span class="badge badge-secondary mr-2">{{ goal.name }}</span>
                 {% endfor %}
+              </p>
+              <p>
                 Рейтинг: {{ teacher.rating }} Ставка: {{ teacher.price }} / час</p>
               <p>{{ teacher.about }}</p>
 
@@ -23,13 +25,13 @@
 
               <h4 class="mb-4 mt-5">Записаться на пробный урок</h4>
 
-              {% for key, day in days.items() %}
-                <h6 class="mt-4">{{ day }}</h6>
+              {% for day in teacher_free %}
+                <h6 class="mt-4">{{ days[day] }}</h6>
                 {% set ns = namespace(nolessons=1) %}
 
-                {% for time, free in teacher.free[key].items() %}
-                  {% if free %}
-                    <a href="/booking/{{ teacher.id }}/{{ key }}/{{ time }}/" class="btn btn-outline-success mr-2 mb-2">{{ time }} свободно</a>
+                {% for time in teacher_free[day] %}
+                  {% if teacher_free[day][time] %}
+                    <a href="{{ url_for('render_booking_form', id=teacher.id, day=day, time=time) }}" class="btn btn-outline-success mr-2 mb-2">{{ time }} свободно</a>
                     {% set ns.nolessons = 0 %}
                   {% endif %}
                 {% endfor %}
@@ -42,7 +44,6 @@
           </div>
         </article>
       </div>
-
     </div>
   </main>
 {% endblock %}
