@@ -74,7 +74,9 @@ class Weekday(db.Model):
     name = db.Column(db.String(15), nullable=False)
     bookings = db.relationship('Booking', back_populates='weekday')
 
+
 db.create_all()
+
 
 weekdays = {
     "mon": "Понедельник",
